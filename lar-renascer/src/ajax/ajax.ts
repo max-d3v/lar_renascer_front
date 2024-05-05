@@ -1,4 +1,4 @@
-async function ajax(endpoint: string, method: string, data?: any): Promise<void> {
+export async function ajax(endpoint: string, method: string, data?: any): Promise<void> {
     const requestOptions: RequestInit = {
         method: method,
         headers: {
@@ -8,7 +8,7 @@ async function ajax(endpoint: string, method: string, data?: any): Promise<void>
     };
 
     try {
-        const response = await fetch(endpoint, requestOptions);
+        const response = await fetch(`http://localhost:3001/api/v1${endpoint}`, requestOptions);
         if (response.ok) {
             const responseData = await response.json();
             return responseData; // Aqui você pode manipular a resposta
