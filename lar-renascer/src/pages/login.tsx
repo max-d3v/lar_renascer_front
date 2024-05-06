@@ -24,17 +24,23 @@ export function Login() {
         }
 
         const response = await ajax("/auth/login", "post", data); 
+        
+        
+
         if (!response) {
             toast.dismiss();
             toast.error("Erro inesperado!");
+            return;
         }
         if (response.status == "error") {
             toast.dismiss();
             toast.error(response.message);
+            return;
         }
         if (response.status == "success") {
             toast.dismiss();
             navigate("/");
+            return;
         }
 
         toast.dismiss();

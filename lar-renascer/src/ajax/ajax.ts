@@ -17,6 +17,7 @@ export async function ajax(endpoint: string, method: string, data?: any): Promis
         }
     } catch (error) {
         console.error('Erro na requisição:', error);
+        return false;
     }
 }
 
