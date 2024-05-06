@@ -1,4 +1,4 @@
-export async function ajax(endpoint: string, method: string, data?: any): Promise<void> {
+export async function ajax(endpoint: string, method: string, data?: any): Promise<any> {
     const requestOptions: RequestInit = {
         method: method,
         headers: {
