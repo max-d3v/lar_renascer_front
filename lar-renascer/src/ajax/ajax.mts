@@ -1,4 +1,11 @@
-export async function ajax(endpoint: string, method: string, data?: any): Promise<any> {
+export interface apiResponse {
+    status: "error" | "success";
+    message: string;
+}
+
+export async function ajax(endpoint: string, method: string, data?: any): Promise<apiResponse> {
+    const endpointFormatted = `http://localhost:3001/api/v1` + endpoint;
+    
     const requestOptions: RequestInit = {
         method: method,
         headers: {
@@ -8,7 +15,7 @@ export async function ajax(endpoint: string, method: string, data?: any): Promis
     };
 
     try {
-        const response = await fetch(`http://localhost:3001/api/v1${endpoint}`, requestOptions);
+        const response = await fetch(endpointFormatted, requestOptions);
         if (response.ok) {
             const responseData = await response.json();
             return responseData; // Aqui você pode manipular a resposta
@@ -18,7 +25,7 @@ export async function ajax(endpoint: string, method: string, data?: any): Promis
         }
     } catch (error) {
         console.error('Erro na requisição:', error);
-        return false;
+        return ({status: "error", message: "Erro interno do servidor"});
     }
 }
 
