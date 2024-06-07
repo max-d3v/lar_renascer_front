@@ -8,13 +8,12 @@ import { useNavigate } from 'react-router-dom';
 
 export function Login() {
     const { register, handleSubmit } = useForm();
-    const [errors, setErrors] = useState<any>({})
+    const [errors, setErrors] = useState<any>({});
+
     const navigate = useNavigate();
 
 
     const onSubmit = async (data: any) => {
-        console.log("submitou!!");
-        
         setErrors({});
         toast.dismiss();
         toast.loading("Entrando");
@@ -36,7 +35,7 @@ export function Login() {
         toast.dismiss();
         if (response.status == "error") {
             toast.error(response.message);
-            return;
+            return;  
         }
         if (response.status == "success") {
             navigate("/");
@@ -51,18 +50,18 @@ export function Login() {
     return (
         <div className=" flex justify-center w-screen h-screen bg-custom-pink" >
             <Toaster/>
-            <div className="flex flex-col " >
-                <div className="w-4/6 h-2/6 mb-24" >
-                  {/*  <img src="../public/images/renascer_logo.png" alt="" /> */}
+            <div className="flex flex-col box-border items-center justify-center " >
+                <div className="w-1/6 h-1/6 mb-32" >
+                    <img src="../public/images/renascer_logo.png" alt="" className="" />
                 </div>
                 <form id="login" action="" onSubmit={handleSubmit(onSubmit)}>
-                <div className="gap-8  flex flex-col w-full">
-                    <Input register={register} name="usuario" placeholder="Usuário" title="Usuário" errors={errors.usuario} />
-                    <Input register={register} name="senha" placeholder="Senha" title="Senha" errors={errors.senha} />
-                </div>
-                <div className="mt-12 w-full">
-                    <Button form="login" name="login" title="Entrar" type="submit"  />
-                </div>
+                    <div className="gap-5  flex flex-col w-full">
+                        <Input register={register} name="usuario" placeholder="Usuário" title="Usuário" errors={errors.usuario} />
+                        <Input register={register} name="senha" placeholder="Senha" title="Senha" errors={errors.senha} />
+                    </div>
+                    <div className="mt-12 w-full">
+                        <Button form="login" name="login" title="Entrar" type="submit"  />
+                    </div>
                 </form>
             </div>
             <Toaster></Toaster>

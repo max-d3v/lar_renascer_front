@@ -42,3 +42,7 @@ a:hover {
 .customWidth {
   width: 5vw;
 }
+
+.customHeight {
+  height: 10vh;
+}

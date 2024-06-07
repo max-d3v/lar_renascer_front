@@ -1,6 +1,7 @@
 export interface apiResponse {
     status: "error" | "success";
     message: string;
+    data?: any;
 }
 
 export async function ajax(endpoint: string, method: string, data?: any): Promise<apiResponse> {
@@ -9,9 +10,11 @@ export async function ajax(endpoint: string, method: string, data?: any): Promis
     const requestOptions: RequestInit = {
         method: method,
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'x-requested-with': 'XMLHttpRequest',
         },
-        body: data ? JSON.stringify(data) : undefined
+        credentials: "include",
+        body: data ? JSON.stringify(data) : undefined,
     };
 
     try {

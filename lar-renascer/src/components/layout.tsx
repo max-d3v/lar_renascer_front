@@ -7,9 +7,16 @@ export function Layout() {
     const pathname = location.pathname.startsWith('/') ? location.pathname.substring(1) : location.pathname;
     const capitalizedPathname = pathname.charAt(0).toUpperCase() + pathname.slice(1);
 
+
+    var buttonType = "voltar";
+    if (capitalizedPathname == "") {
+        buttonType = "sair";
+    }
+
+
     return (
         <>
-        <Header title={capitalizedPathname}  />
+        <Header title={capitalizedPathname} buttonType={buttonType}  />
         <Outlet/>
         </>
     )

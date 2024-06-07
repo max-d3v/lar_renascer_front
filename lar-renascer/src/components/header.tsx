@@ -14,7 +14,7 @@ export function Header({buttonType, title}: HeaderProps) {
     }
 
     const voltar = () => {
-        return;
+        if (title ==  "Acolhidas") navigate("/");
     }
 
     return (
@@ -23,7 +23,9 @@ export function Header({buttonType, title}: HeaderProps) {
                 <img src="../public/images/renascer_logo.png" alt=""  />
             </div>
             <p className="font-semibold text-white text-4xl" >{title}</p>
-            <Button name="botaoHeader" title={ buttonType == "sair" ? "Sair" : "Voltar" } size=" w-24 " customCss="text-xl" onClick={ buttonType == "sair" ? () => logout() : () => voltar() } />
-        </div>
+            <div className="w-1/6" >
+                <Button name="botaoHeader" title={ buttonType == "sair" ? "Sair" : "Voltar" } size=" w-24 " customCss="text-xl" onClick={ buttonType == "sair" ? () => logout() : () => voltar() } />
+            </div>
+            </div>
     )
 }
