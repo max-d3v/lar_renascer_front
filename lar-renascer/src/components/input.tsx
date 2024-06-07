@@ -23,7 +23,7 @@ export function  Input({name, customCss, rules, placeholder, title, register, er
                 type="text" 
                 placeholder={placeholder}  
                 name={name} />
-            <p className=" font-semibold" >{ errors }</p>
+            <p className=" font-semibold text-red-700" >{ errors }</p>
         </div>
     )
 }
