@@ -15,40 +15,58 @@ export function Benfeitores() {
     const [filter, setFilter ] = useState<string>("");  
     const [isWaiting, setIsWaiting] = useState(false);
     const [benfeitores, setBenfeitores] = useState<benfeitor[]>([]);
+    const [onlyOnFirstRender, setFirstRender] = useState(false);
     const navigate = useNavigate();
 
     const navigateBenfeitoresRegister = () => {
         navigate("/benfeitores/menu");
     }
 
+    const handleDebouncedInput = () => {
+        if (isWaiting) {
+            return;
+        }
+        setIsWaiting(true);
+        searchBenfeitores();
+        setTimeout(() => {
+            setIsWaiting(false);
+        }, 500);
+
+    }
+
+    const searchBenfeitores = async () => {
+        setBenfeitores([]);
+        const benfeitores: apiResponse = await ajax("/benfeitores", "post", {acolhida: filter});
+        if (benfeitores.status == "error") {
+            if (typeof benfeitores.message == "string") {
+                toast.error(benfeitores.message);
+            }
+            if (Array.isArray(benfeitores.message)) {
+                benfeitores.message.forEach((error: any) => {
+                    toast.error(error.msg);
+                });
+                return;
+            }
+        }
+        if (benfeitores.status == "success") {
+            console.log(benfeitores);
+            setBenfeitores(benfeitores.data);
+        }
+    }
 
 
     useEffect(() => {
-        const handleDebouncedInput = () => {
-            if (isWaiting) {
-                return;
-            }
-            setIsWaiting(true);
+        console.log("executou com o first:" + onlyOnFirstRender);
+        if (!onlyOnFirstRender) {
+            setFirstRender(true);
             searchBenfeitores();
-            setTimeout(() => {
-                setIsWaiting(false);
-            }, 500);
-    
         }
+    }, [])
 
-        const searchBenfeitores = async () => {
-            setBenfeitores([]);
-            const acolhidas: apiResponse = await ajax("/benfeitores/todos", "post", {acolhida: filter});
-            if (acolhidas.status == "error") {
-                toast.error(acolhidas.message);
-            }
-            if (acolhidas.status == "success") {
-                console.log(acolhidas);
-                setBenfeitores(acolhidas.data);
-            }
-            
+    useEffect(() => {
+        if (filter && filter.length >= 3) {
+            handleDebouncedInput();
         }
-        handleDebouncedInput();
     }, [filter])
 
     return (
