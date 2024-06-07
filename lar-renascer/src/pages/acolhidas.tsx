@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { ajax, apiResponse } from "../ajax/ajax.mts";
 import { Acolhida } from "../components/acolhida";
 import toast, { Toaster } from 'react-hot-toast';
+import { useNavigate } from "react-router-dom";
 export interface acolhida {
     nome: string;
 }
@@ -14,7 +15,11 @@ export function Acolhidas() {
     const [filter, setFilter ] = useState<string>("");  
     const [isWaiting, setIsWaiting] = useState(false);
     const [acolhidas, setAcolhidas] = useState<acolhida[]>([]);
-    
+    const navigate = useNavigate();
+
+    const navigateAcolhidasRegister = () => {
+        navigate("/acolhidas/register");
+    }
 
     useEffect(() => {
 
@@ -32,7 +37,7 @@ export function Acolhidas() {
 
         const searchAcolhidas = async () => {
             setAcolhidas([]);
-            const acolhidas = await ajax("/acolhidas/todas", "post", {acolhida: filter});
+            const acolhidas: apiResponse = await ajax("/acolhidas/todas", "post", {acolhida: filter});
             if (acolhidas.status == "error") {
                 toast.error(acolhidas.message);
             }
@@ -57,7 +62,7 @@ export function Acolhidas() {
                     <Input name="searchAcolhidas" placeholder="Pesquisar" title="Acolhidas" register={register} valueHandler={(e) => setFilter(e.target.value)} />
                 </div>
                 <div className="w-1/6" >
-                    <Button name="acolhidasSubmit" title="Cadastrar" type="submit" />
+                    <Button name="acolhidasSubmit" title="Cadastrar" onClick={navigateAcolhidasRegister} />
                 </div>
             </div>
             <div className=" flex w-11/12 h-full bg-white mb-4" >
