@@ -14,7 +14,7 @@ export function Header({buttonType, title}: HeaderProps) {
     }
 
     const voltar = () => {
-        if (title ==  "Acolhidas") navigate("/");
+        navigate(-1);
     }
 
     return (
