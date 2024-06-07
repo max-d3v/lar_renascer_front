@@ -4,6 +4,8 @@ import { Layout } from './components/layout';
 import { Login } from './pages/login';
 import { Acolhidas } from "./pages/acolhidas";
 import { Benfeitores } from "./pages/benfeitores";
+import { BenfeitoresMenu } from "./pages/benfeitoresMenu";
+import { BenfeitoresRegister } from "./pages/benfeitoresRegistro";
 const router = createBrowserRouter([
   {
     
@@ -20,6 +22,14 @@ const router = createBrowserRouter([
       {
         path: "/benfeitores",
         element:<Benfeitores/>
+      },
+      {
+        path: "/benfeitores/menu",
+        element: <BenfeitoresMenu/>
+      },
+      {
+        path: "/benfeitores/registro/:tipo",
+        element: <BenfeitoresRegister/>
       }
     ]
   },

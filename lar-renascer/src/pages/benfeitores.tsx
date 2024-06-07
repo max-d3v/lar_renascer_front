@@ -18,7 +18,7 @@ export function Benfeitores() {
     const navigate = useNavigate();
 
     const navigateBenfeitoresRegister = () => {
-        navigate("/benfeitores/register");
+        navigate("/benfeitores/menu");
     }
 
 

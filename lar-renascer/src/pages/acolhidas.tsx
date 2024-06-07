@@ -18,40 +18,47 @@ export function Acolhidas() {
     const navigate = useNavigate();
 
     const navigateAcolhidasRegister = () => {
-        navigate("/acolhidas/register");
+        navigate("/acolhidas/registro");
     }
 
-    useEffect(() => {
-
-        const handleDebouncedInput = () => {
-            if (isWaiting) {
-                return;
-            }
-            setIsWaiting(true);
-            searchAcolhidas();
-            setTimeout(() => {
-                setIsWaiting(false);
-            }, 500);
-    
+    const handleDebouncedInput = () => {
+        if (isWaiting) {
+            return;
         }
+        setIsWaiting(true);
+        searchAcolhidas();
+        setTimeout(() => {
+            setIsWaiting(false);
+        }, 500);
 
-        const searchAcolhidas = async () => {
-            setAcolhidas([]);
-            const acolhidas: apiResponse = await ajax("/acolhidas/todas", "post", {acolhida: filter});
-            if (acolhidas.status == "error") {
-                toast.error(acolhidas.message);
+    }
+
+    const searchAcolhidas = async () => {
+        setAcolhidas([]);
+        const acolhidas: apiResponse = await ajax("/acolhidas", "post", {acolhida: filter});
+        if (acolhidas.status == "error") {
+            if (Array.isArray(acolhidas.message)) {
+                acolhidas.message.forEach((error: string) => {
+                    toast.error(error);
+                });
             }
-            if (acolhidas.status == "success") {
-                console.log(acolhidas);
-                setAcolhidas(acolhidas.data);
-            }
-            
+            toast.error(acolhidas.message);
+        }
+        if (acolhidas.status == "success") {
+            console.log(acolhidas);
+            setAcolhidas(acolhidas.data);
         }
         
+    }
 
 
+    useEffect(() => {
         handleDebouncedInput();
     }, [filter])
+
+    useEffect(() => {
+        handleDebouncedInput();
+    }, [])
 
     return (
         <>
