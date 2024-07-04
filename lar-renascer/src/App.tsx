@@ -9,9 +9,10 @@ import { BenfeitoresRegister } from "./pages/benfeitoresRegistro";
 import { Error } from "./pages/errorPage";
 import { AcolhidasRegister } from "./pages/acolhidasRegister";
 import { Private } from "./routes/private";
+import { Benfeitor } from "./pages/benfeitor";
 const router = createBrowserRouter([
   {
-    
+
     element: <Layout/>,
     children: [
       {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
         element: <Private><Benfeitores/></Private>
       },
       {
+        path: "/benfeitor/:id",
+        element: <Private><Benfeitor/></Private>
+      },
+      {
         path: "/benfeitores/menu",
         element: <Private><BenfeitoresMenu/></Private>
       },
@@ -40,7 +45,7 @@ const router = createBrowserRouter([
       },
       {
         path: "*",
-        element: <Error/>
+        element: <Private><Error/></Private>
       }
     ]
   },

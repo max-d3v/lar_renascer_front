@@ -4,6 +4,8 @@ export interface apiResponse {
     data?: any;
     user?: any;
     msg?: any;
+    benfeitor?: any;
+    transacoes?: any;
 }
 
 const deleteAllCookies = () => {
