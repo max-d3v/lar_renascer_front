@@ -21,6 +21,17 @@ export function BenfeitoresRegister() {
 
 
     const onSubmit = async (data: any) => {
+        if (tipo == "fisica") {
+            const cpf = data.cpf;
+            const trimmedCpf = cpf.replace(/\D/g, '');
+            data.cpf = trimmedCpf;
+        }
+        if (tipo == "juridica") {
+            const cnpj = data.cnpj;
+            const trimmedCnpj = cnpj.replace(/\D/g, '');
+            data.cnpj = trimmedCnpj;
+        }    
+    
         toast.dismiss();
         toast.loading("Cadastrando");
         if (tipo !== "fisica" && tipo !== "juridica") {
@@ -47,8 +58,8 @@ export function BenfeitoresRegister() {
         if (response.status == "success") {
             toast.success("Cadastro Realizado!");
             setTimeout(() => {
-                return navigate(-1);    
-            }, 3000);
+                return navigate("/benfeitores/menu");    
+            }, 2200);
             return;
         }
 
@@ -85,7 +96,7 @@ export function BenfeitoresRegister() {
                         <Button name="cadastrar" title="Cadastrar" type="submit" /> 
                     </div>
                     <div className="w-2/6" >
-                        <Button customCss="bg-red-500" name="cancelar" title="Cancelar" onClick={ () => navigate(-1) }  />
+                        <Button customCss="bg-red-500" name="cancelar" title="Cancelar" onClick={ () => navigate("/benfeitores/menu") }  />
                     </div>
                 </div>
             </form>

@@ -1,6 +1,6 @@
 import { Button } from "./button"
 import { useNavigate } from "react-router-dom"
-
+import { ajax } from "../ajax/ajax.mts";
 interface HeaderProps {
     buttonType?: string;
     title: string;
@@ -8,9 +8,23 @@ interface HeaderProps {
 
 export function Header({buttonType, title}: HeaderProps) {
     const navigate = useNavigate();
+    const deleteAllCookies = () => {
+        const cookies = document.cookie.split(";");
+      
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i];
+          const eqPos = cookie.indexOf("=");
+          const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+          document.cookie = name + "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/";
+        }
+    }
 
-    const logout = () => {
-        return;
+    const logout = async () => {
+        localStorage.clear();
+        sessionStorage.clear();
+        deleteAllCookies();
+        const response = await ajax("/auth/logout", "get", null);
+        navigate("/login");
     }
 
     const voltar = () => {

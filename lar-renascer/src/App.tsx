@@ -6,6 +6,9 @@ import { Acolhidas } from "./pages/acolhidas";
 import { Benfeitores } from "./pages/benfeitores";
 import { BenfeitoresMenu } from "./pages/benfeitoresMenu";
 import { BenfeitoresRegister } from "./pages/benfeitoresRegistro";
+import { Error } from "./pages/errorPage";
+import { AcolhidasRegister } from "./pages/acolhidasRegister";
+import { Private } from "./routes/private";
 const router = createBrowserRouter([
   {
     
@@ -13,30 +16,39 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home/>
+        element: <Private><Home/></Private>
       },
       {
         path: "/acolhidas",
-        element:<Acolhidas/>
+        element:<Private><Acolhidas/></Private>
+      },
+      {
+        path: "/acolhidas/registro",
+        element: <Private><AcolhidasRegister/></Private>
       },
       {
         path: "/benfeitores",
-        element:<Benfeitores/>
+        element: <Private><Benfeitores/></Private>
       },
       {
         path: "/benfeitores/menu",
-        element: <BenfeitoresMenu/>
+        element: <Private><BenfeitoresMenu/></Private>
       },
       {
         path: "/benfeitores/registro/:tipo",
-        element: <BenfeitoresRegister/>
+        element: <Private><BenfeitoresRegister/></Private>
+      },
+      {
+        path: "*",
+        element: <Error/>
       }
     ]
   },
   {
     element: <Login/>,
     path: "/login"
-  }
+  },
+  
 ])
 
 export { router } ;

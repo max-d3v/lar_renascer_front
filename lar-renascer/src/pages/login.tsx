@@ -57,7 +57,7 @@ export function Login() {
                 <form id="login" action="" onSubmit={handleSubmit(onSubmit)}>
                     <div className="gap-5  flex flex-col w-full">
                         <Input register={register} name="usuario" placeholder="Usuário" title="Usuário" errors={errors.usuario} />
-                        <Input register={register} name="senha" placeholder="Senha" title="Senha" errors={errors.senha} />
+                        <Input register={register} name="senha" placeholder="Senha" title="Senha" errors={errors.senha} tipo="password" />
                     </div>
                     <div className="mt-12 w-full">
                         <Button form="login" name="login" title="Entrar" type="submit"  />

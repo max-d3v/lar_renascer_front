@@ -27,6 +27,24 @@ a:hover {
   background-color: #B7932D;
 }
 
+.tamanhoBtn {
+  width: 8vw;
+}
+
+.fundoCinza {
+  background-color: #d6d6d6;
+}
+.fundoCinzaEscuro {
+  background-color: #a3a3a3;
+}
+.fundoBranco {
+  background-color: white;
+}
+.customBorder {
+  border: 0.1px solid black;
+}
+
+
 .headerHeight {
   height: 10vh;
 }

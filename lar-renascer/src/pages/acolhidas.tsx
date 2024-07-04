@@ -39,12 +39,17 @@ export function Acolhidas() {
         if (acolhidas.status == "error") {
             if (Array.isArray(acolhidas.message)) {
                 acolhidas.message.forEach((error: string) => {
-                    toast.error(error);
+                    toast.error("Erro ao pesquisar acolhidas");
                 });
             }
-            toast.error(acolhidas.message);
+            if (typeof acolhidas.message == "string") {
+                toast.error(acolhidas.message);
+                return;
+            }
+            toast.error("Erro ao pesquisar acolhidas");
         }
         if (acolhidas.status == "success") {
+            toast.success("acolhidas carregadas com sucesso!")
             console.log(acolhidas);
             setAcolhidas(acolhidas.data);
         }
@@ -53,7 +58,7 @@ export function Acolhidas() {
 
 
     useEffect(() => {
-        handleDebouncedInput();
+        //handleDebouncedInput();
     }, [filter])
 
     useEffect(() => {

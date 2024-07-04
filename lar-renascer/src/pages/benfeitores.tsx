@@ -3,18 +3,25 @@ import { Input } from "../components/input"
 import { useState, useEffect } from "react"; 
 import { useForm } from "react-hook-form"
 import { ajax, apiResponse } from "../ajax/ajax.mts";
-import { Acolhida } from "../components/acolhida";
+import { Benfeitor } from "../components/benfeitor";
 import toast, { Toaster } from 'react-hot-toast';
 import { useNavigate } from "react-router-dom";
-export interface benfeitor {
+
+export interface benfeitorInfo {
+    id: number;
     nome: string;
+    razaoSocial: string;
+    cpf: string;
+    cnpj: string;
+    tipo: string;
+    dataCadastro: string;
 }
 
 export function Benfeitores() {
     const { register, handleSubmit } = useForm();
     const [filter, setFilter ] = useState<string>("");  
     const [isWaiting, setIsWaiting] = useState(false);
-    const [benfeitores, setBenfeitores] = useState<benfeitor[]>([]);
+    const [benfeitores, setBenfeitores] = useState<benfeitorInfo[]>([]);
     const [onlyOnFirstRender, setFirstRender] = useState(false);
     const navigate = useNavigate();
 
@@ -36,7 +43,7 @@ export function Benfeitores() {
 
     const searchBenfeitores = async () => {
         setBenfeitores([]);
-        const benfeitores: apiResponse = await ajax("/benfeitores", "post", {acolhida: filter});
+        const benfeitores: apiResponse = await ajax("/benfeitores", "post", {benfeitor: filter});
         if (benfeitores.status == "error") {
             if (typeof benfeitores.message == "string") {
                 toast.error(benfeitores.message);
@@ -50,6 +57,7 @@ export function Benfeitores() {
         }
         if (benfeitores.status == "success") {
             console.log(benfeitores);
+            toast.success("Benfeitores carregados com sucesso!")
             setBenfeitores(benfeitores.data);
         }
     }
@@ -81,9 +89,23 @@ export function Benfeitores() {
                     <Button name="benfeitoresSubmit" title="Cadastrar" onClick={navigateBenfeitoresRegister} />
                 </div>
             </div>
-            <div className=" flex w-11/12 h-full bg-white mb-4" >
-                {benfeitores.map((benfeitor: benfeitor) => {
-                    return <Acolhida nome={benfeitor.nome} />
+            <div className="w-11/12 flex items-center justify-center mt-2 mb-1" >
+                <div className="w-1/4 flex justify-center text-3xl font-semibold " >
+                    Nome
+                </div>
+                <div className="w-1/4 flex justify-center text-3xl font-semibold" >
+                    Identificador (CPF/CNPJ)
+                </div>
+                <div className="w-1/4 flex justify-center text-3xl font-semibold" >
+                    Data de Cadastro
+                </div>
+                <div className="w-1/4 flex justify-center text-3xl font-semibold" >
+                    Tipo
+                </div>
+            </div>
+            <div className=" flex flex-col w-11/12 h-full bg-white mb-4" >
+                {benfeitores.map((benfeitor: benfeitorInfo, index) => {
+                    return <Benfeitor benfeitor={benfeitor} index={ index } />
                 })}
             </div>
         </div>
