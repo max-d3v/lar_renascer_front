@@ -18,6 +18,9 @@ export function Layout() {
     if (capitalizedPathname.includes("Acolhidas/registro") ) {
         capitalizedPathname = "Registro de Acolhidas"
     }
+    if (capitalizedPathname == '' || capitalizedPathname == '/') {
+        capitalizedPathname = "Home";
+    }
 
 
     return (

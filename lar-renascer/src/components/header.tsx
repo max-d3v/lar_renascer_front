@@ -33,7 +33,7 @@ export function Header({buttonType, title}: HeaderProps) {
 
     return (
         <div className="w-full headerHeight customBrown flex items-center justify-between px-4 box-border w- ">
-            <div className="customWidth cursor-pointer" >
+            <div className="customWidth cursor-pointer" onClick={() => navigate("/")} >
                 <img src="../public/images/renascer_logo.png" alt=""  />
             </div>
             <p className="font-semibold text-white text-4xl" >{title}</p>
